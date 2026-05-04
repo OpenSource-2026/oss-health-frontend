@@ -173,3 +173,73 @@ body {
 .detail-card.wide {
   min-height: 170px;
 }
+
+.auth-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #dfe2ec;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 145px;
+}
+
+.auth-logo {
+  text-align: center;
+  color: #263f91;
+  cursor: pointer;
+}
+
+.auth-logo h1 {
+  font-size: 72px;
+  margin: 0;
+  font-weight: 800;
+}
+
+.auth-logo p {
+  font-size: 20px;
+  margin: 8px 0 32px;
+}
+
+.auth-box {
+  width: 313px;
+  background-color: white;
+  border-radius: 7px;
+  padding: 22px 23px 23px;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-box label {
+  font-size: 16px;
+  color: #111;
+  margin-bottom: 9px;
+}
+
+.auth-box input {
+  height: 41px;
+  border: 1px solid #d3d3d3;
+  border-radius: 8px;
+  padding: 0 16px;
+  font-size: 15px;
+  margin-bottom: 23px;
+  outline: none;
+}
+
+.auth-box input::placeholder {
+  color: #aaa;
+}
+
+.auth-box button {
+  height: 39px;
+  border-radius: 7px;
+  border: 1px solid #263f91;
+  background-color: #aab8dd;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.signup-box {
+  padding-bottom: 24px;
+}

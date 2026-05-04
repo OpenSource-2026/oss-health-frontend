@@ -1,23 +1,77 @@
+import { useState } from "react";
 import "./MainPage.css";
 
 function MainPage() {
+    const [page, setPage] = useState("main");
+
+    if (page === "login") {
+        return (
+            <div className="auth-page">
+                <div className="auth-logo" onClick={() => setPage("main")}>
+                    <h1>OSHC</h1>
+                    <p>OpenSourceHealthChecker</p>
+                </div>
+
+                <div className="auth-box">
+                    <label>아이디</label>
+                    <input type="text" placeholder="Value" />
+
+                    <label>비밀번호</label>
+                    <input type="password" placeholder="Value" />
+
+                    <button>로그인</button>
+                </div>
+            </div>
+        );
+    }
+
+    if (page === "signup") {
+        return (
+            <div className="auth-page">
+                <div className="auth-logo" onClick={() => setPage("main")}>
+                    <h1>OSHC</h1>
+                    <p>OpenSourceHealthChecker</p>
+                </div>
+
+                <div className="auth-box signup-box">
+                    <label>이메일</label>
+                    <input type="email" placeholder="Value" />
+
+                    <label>아이디</label>
+                    <input type="text" placeholder="Value" />
+
+                    <label>비밀번호</label>
+                    <input type="password" placeholder="Value" />
+
+                    <button>회원가입</button>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="page">
-            {/* 첫 번째 화면 */}
             <section className="main-section">
                 <nav className="navbar">
                     <div className="nav-menu">
                         <button className="nav-active">마이페이지</button>
                         <span>커뮤니티 활동도</span>
                         <span>지속가능성</span>
-                        <span>코드 품질<br />및 신뢰성</span>
+                        <span>
+                            코드 품질
+                            <br />및 신뢰성
+                        </span>
                         <span>법적·운영 거버넌스</span>
                         <span>프로젝트 성숙도</span>
                     </div>
 
                     <div className="nav-buttons">
-                        <button className="login-btn">로그인</button>
-                        <button className="signup-btn">회원가입</button>
+                        <button className="login-btn" onClick={() => setPage("login")}>
+                            로그인
+                        </button>
+                        <button className="signup-btn" onClick={() => setPage("signup")}>
+                            회원가입
+                        </button>
                     </div>
                 </nav>
 
@@ -32,7 +86,6 @@ function MainPage() {
                 </div>
             </section>
 
-            {/* 두 번째 화면 */}
             <section className="detail-section">
                 <h2>세부 항목</h2>
 
