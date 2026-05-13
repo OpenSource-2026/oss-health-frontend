@@ -1,144 +1,210 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px,
-    rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+  box-sizing: border-box;
 }
 
-@media (max-width: 1024px) {
-  :root {
-    font-size: 16px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px,
-      rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
-/* 화면 전체 기본 설정 */
 html,
-body {
+body,
+#root {
   width: 100%;
-  min-width: 100%;
   min-height: 100%;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
 }
 
-/* 기본 배경 */
 body {
-  background: var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR",
+    "Apple SD Gothic Neo", Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #222;
 }
 
-/* React 앱이 들어가는 root */
-#root {
+/* 전체 앱 */
+.app {
   width: 100%;
-  min-width: 100%;
   min-height: 100vh;
-  margin: 0;
-  padding: 0;
-  text-align: initial;
+  background-color: #f5f5f5;
+}
+
+/* 상단 네비게이션 바 */
+.navbar {
+  width: 100%;
+  min-height: 138px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #dddddd;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px 48px;
+}
+
+/* 메뉴 + 버튼 전체 묶음 */
+.navbar-inner {
+  width: 100%;
+  max-width: 1500px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 60px;
+}
+
+/* 메뉴 묶음 */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 56px;
+  flex-wrap: wrap;
+
+  flex: 1;
+}
+
+/* 메뉴 글씨 */
+.nav-menu a,
+.nav-menu button {
+  background: none;
   border: none;
-  display: block;
-  box-sizing: border-box;
-}
+  padding: 0;
 
-/* 모든 요소 크기 계산 안정화 */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-/* 제목 기본 스타일 */
-h1,
-h2 {
-  font-family: var(--heading);
+  font-size: 25px;
   font-weight: 500;
-  color: var(--text-h);
+  color: #222222;
+  text-decoration: none;
+
+  cursor: pointer;
+  white-space: nowrap;
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
+/* 코드 품질 및 신뢰성처럼 두 줄 메뉴 */
+.nav-menu .two-line {
+  line-height: 1.2;
+  text-align: center;
 }
 
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
+/* 로그인/회원가입 버튼 묶음 */
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 18px;
+  flex-shrink: 0;
 }
 
-p {
-  margin: 0;
+/* 공통 버튼 */
+.auth-buttons button {
+  min-width: 124px;
+  height: 58px;
+
+  border-radius: 14px;
+  font-size: 22px;
+  font-weight: 500;
+
+  cursor: pointer;
 }
 
-/* 코드 스타일 */
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+/* 로그인 버튼 */
+.login-btn {
+  background-color: #f7f7f7;
+  color: #222222;
+  border: 1px solid #999999;
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+/* 회원가입 버튼 */
+.signup-btn {
+  background-color: #222222;
+  color: #ffffff;
+  border: 1px solid #222222;
 }
 
-/* 반응형 */
-@media (max-width: 1024px) {
-  h1 {
-    font-size: 36px;
-    margin: 20px 0;
+/* 메인 영역 */
+.main {
+  width: 100%;
+  min-height: calc(100vh - 138px);
+  padding: 40px 24px;
+}
+
+/* ========================= */
+/* 작은 화면 대응 */
+/* ========================= */
+
+@media (max-width: 1100px) {
+  .navbar {
+    padding: 24px 28px;
   }
 
-  h2 {
-    font-size: 20px;
+  .navbar-inner {
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .nav-menu {
+    width: 100%;
+    gap: 28px 36px;
+  }
+
+  .nav-menu a,
+  .nav-menu button {
+    font-size: 22px;
+  }
+
+  .auth-buttons {
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .navbar {
+    min-height: auto;
+    padding: 22px 18px;
+  }
+
+  .navbar-inner {
+    gap: 24px;
+  }
+
+  .nav-menu {
+    gap: 18px 24px;
+  }
+
+  .nav-menu a,
+  .nav-menu button {
+    font-size: 18px;
+  }
+
+  .auth-buttons {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .auth-buttons button {
+    min-width: 110px;
+    height: 50px;
+    font-size: 18px;
+    border-radius: 12px;
+  }
+
+  .main {
+    padding: 28px 16px;
+  }
+}
+
+@media (max-width: 430px) {
+  .nav-menu {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .auth-buttons {
+    flex-direction: column;
+  }
+
+  .auth-buttons button {
+    width: 100%;
+    max-width: 240px;
   }
 }

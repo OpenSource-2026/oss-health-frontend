@@ -32,7 +32,7 @@ const menuData = {
             },
             {
                 title: "Activity Stability",
-                text: "활동의 지속성, 공백, 불규칙성을 측정한다.\n\n지속 간으성은 평균 활동량보다 안정성에 더 크게 좌우된다는 근거에 따라 적용된다.",
+                text: "활동의 지속성, 공백, 불규칙성을 측정한다.\n\n지속 가능성은 평균 활동량보다 안정성에 더 크게 좌우된다는 근거에 따라 적용된다.",
             },
         ],
     },
@@ -58,11 +58,11 @@ const menuData = {
         cards: [
             {
                 title: "Legal Compliance",
-                text: "라이선스의 존재와 법적 명확성을 측정한다.\n\nOpenChain 관점에서 필수 요소라는 특징을 지니고있다.",
+                text: "라이선스의 존재와 법적 명확성을 측정한다.\n\nOpenChain 관점에서 필수 요소라는 특징을 지니고 있다.",
             },
             {
                 title: "Governance Structure",
-                text: "운영 규칙, 기여 규범, 유지 보수 구조 존재의 여부를 측정한다.\n\n거버넌스 문서가 있을 수록 조직적 운영 가능성이 높아진다는 근거에 의존한다.",
+                text: "운영 규칙, 기여 규범, 유지 보수 구조 존재의 여부를 측정한다.\n\n거버넌스 문서가 있을수록 조직적 운영 가능성이 높아진다는 근거에 의존한다.",
             },
         ],
     },
@@ -205,30 +205,39 @@ function MainPage() {
     return (
         <div className="page">
             <section className="main-section">
-                <nav className="navbar">
-                    <div className="nav-menu">
-                        <button className="nav-active">마이페이지</button>
-                        <button onClick={() => setPage("community")}>커뮤니티 활동도</button>
-                        <button onClick={() => setPage("sustainability")}>지속가능성</button>
-                        <button onClick={() => setPage("code")}>
-                            코드 품질
-                            <br />및 신뢰성
-                        </button>
-                        <button onClick={() => setPage("governance")}>
-                            법적·운영 거버넌스
-                        </button>
-                        <button onClick={() => setPage("maturity")}>프로젝트 성숙도</button>
-                    </div>
+                <header className="navbar">
+                    <div className="navbar-inner">
+                        <nav className="nav-menu">
+                            <button className="nav-active">마이페이지</button>
+                            <button onClick={() => setPage("community")}>
+                                커뮤니티 활동도
+                            </button>
+                            <button onClick={() => setPage("sustainability")}>
+                                지속가능성
+                            </button>
+                            <button className="two-line" onClick={() => setPage("code")}>
+                                코드 품질
+                                <br />
+                                및 신뢰성
+                            </button>
+                            <button onClick={() => setPage("governance")}>
+                                법적·운영 거버넌스
+                            </button>
+                            <button onClick={() => setPage("maturity")}>
+                                프로젝트 성숙도
+                            </button>
+                        </nav>
 
-                    <div className="nav-buttons">
-                        <button className="login-btn" onClick={() => setPage("login")}>
-                            로그인
-                        </button>
-                        <button className="signup-btn" onClick={() => setPage("signup")}>
-                            회원가입
-                        </button>
+                        <div className="auth-buttons">
+                            <button className="login-btn" onClick={() => setPage("login")}>
+                                로그인
+                            </button>
+                            <button className="signup-btn" onClick={() => setPage("signup")}>
+                                회원가입
+                            </button>
+                        </div>
                     </div>
-                </nav>
+                </header>
 
                 <div className="hero-content">
                     <h1>OSHC</h1>
