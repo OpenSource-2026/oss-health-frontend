@@ -4,283 +4,279 @@ import "./MainPage.css";
 const detailPages = {
     community: {
         title: "커뮤니티 활성도",
+        description:
+            "오픈소스 프로젝트가 얼마나 활발하게 운영되고 있는지 확인하는 지표입니다.",
         cards: [
             {
-                title: "기여자 활동",
-                desc: "커밋, 이슈, PR 활동을 기준으로 프로젝트 커뮤니티가 얼마나 활발한지 확인합니다.",
+                title: "Issue 활동",
+                text: "최근 이슈가 꾸준히 생성되고 해결되는지 확인합니다.",
             },
             {
-                title: "참여 속도",
-                desc: "새로운 이슈나 PR에 대해 얼마나 빠르게 반응하는지 분석합니다.",
+                title: "Pull Request 활동",
+                text: "PR이 활발하게 올라오고 병합되는지 확인합니다.",
             },
             {
-                title: "논의 품질",
-                desc: "커뮤니티 안에서 문제 해결과 의견 교환이 잘 이루어지는지 확인합니다.",
+                title: "Contributor 참여",
+                text: "여러 기여자가 프로젝트에 지속적으로 참여하는지 확인합니다.",
             },
         ],
     },
     sustainability: {
         title: "지속 가능성",
+        description:
+            "프로젝트가 앞으로도 유지될 가능성이 높은지 확인하는 지표입니다.",
         cards: [
             {
-                title: "기여자 구조",
-                desc: "소수의 개발자에게만 의존하지 않고 여러 기여자가 참여하는지 확인합니다.",
+                title: "최근 업데이트",
+                text: "최근 커밋과 릴리즈가 꾸준히 이루어지는지 확인합니다.",
             },
             {
-                title: "활동 안정성",
-                desc: "프로젝트가 꾸준히 관리되고 업데이트되는지 분석합니다.",
+                title: "관리자 반응성",
+                text: "관리자가 이슈와 PR에 얼마나 빠르게 반응하는지 확인합니다.",
             },
             {
                 title: "장기 유지 가능성",
-                desc: "앞으로도 프로젝트가 안정적으로 유지될 가능성을 확인합니다.",
+                text: "프로젝트가 오래 방치되지 않고 관리되고 있는지 확인합니다.",
             },
         ],
     },
     quality: {
         title: "코드 품질 및 신뢰성",
+        description:
+            "프로젝트 코드가 안정적이고 신뢰할 수 있는지 확인하는 지표입니다.",
         cards: [
             {
-                title: "테스트 관리",
-                desc: "테스트 코드와 자동화된 검증이 잘 준비되어 있는지 확인합니다.",
+                title: "테스트 여부",
+                text: "테스트 코드나 CI 환경이 준비되어 있는지 확인합니다.",
             },
             {
-                title: "결함 관리",
-                desc: "버그나 오류가 얼마나 잘 관리되고 해결되는지 분석합니다.",
+                title: "문서화 상태",
+                text: "README, 사용법, 기여 가이드가 잘 작성되어 있는지 확인합니다.",
             },
             {
-                title: "보안 대응",
-                desc: "보안 이슈에 대한 대응 수준과 프로젝트 신뢰도를 확인합니다.",
+                title: "코드 관리 상태",
+                text: "코드 구조와 관리 방식이 안정적인지 확인합니다.",
             },
         ],
     },
     governance: {
         title: "법적·운영 거버넌스",
+        description:
+            "라이선스, 운영 정책, 기여 규칙처럼 프로젝트 운영에 필요한 기준을 확인하는 지표입니다.",
         cards: [
             {
-                title: "라이선스 관리",
-                desc: "오픈소스 라이선스가 명확하게 제공되어 사용자가 법적으로 안전하게 활용할 수 있는지 확인합니다.",
+                title: "라이선스 명시",
+                text: "프로젝트에 오픈소스 라이선스가 명확하게 작성되어 있는지 확인합니다.",
             },
             {
-                title: "운영 규칙",
-                desc: "기여 가이드, 행동 강령, 운영 문서가 준비되어 있는지 분석합니다.",
+                title: "기여 규칙",
+                text: "CONTRIBUTING 문서처럼 기여자가 참고할 수 있는 규칙이 있는지 확인합니다.",
             },
             {
-                title: "프로젝트 관리 체계",
-                desc: "프로젝트가 명확한 규칙과 관리 기준에 따라 운영되는지 확인합니다.",
+                title: "운영 정책",
+                text: "프로젝트 운영 방식과 관리 기준이 잘 정리되어 있는지 확인합니다.",
             },
         ],
     },
     maturity: {
         title: "프로젝트 성숙도",
+        description:
+            "프로젝트가 어느 정도 안정적으로 성장했는지 확인하는 지표입니다.",
         cards: [
             {
-                title: "릴리즈 안정성",
-                desc: "버전 관리와 릴리즈가 꾸준히 이루어지는지 확인합니다.",
+                title: "릴리즈 기록",
+                text: "버전 관리와 릴리즈 기록이 꾸준히 관리되는지 확인합니다.",
             },
             {
-                title: "문서 완성도",
-                desc: "README, 설치 방법, 사용법 등 프로젝트 이해에 필요한 문서가 충분한지 분석합니다.",
+                title: "사용자 기반",
+                text: "Star, Fork, Watch 등 사용자 관심도를 확인합니다.",
             },
             {
-                title: "사용 가능성",
-                desc: "실제로 사용자가 프로젝트를 쉽게 설치하고 활용할 수 있는지 확인합니다.",
-            },
-        ],
-    },
-    mypage: {
-        title: "마이페이지",
-        cards: [
-            {
-                title: "분석 기록",
-                desc: "지금까지 분석한 오픈소스 프로젝트 목록과 결과를 확인합니다.",
-            },
-            {
-                title: "점수 그래프",
-                desc: "프로젝트별 Health Score 변화를 그래프로 확인합니다.",
-            },
-            {
-                title: "내 분석 관리",
-                desc: "내가 분석한 프로젝트 결과를 다시 확인하고 관리합니다.",
-            },
-        ],
-    },
-    login: {
-        title: "로그인",
-        cards: [
-            {
-                title: "계정 로그인",
-                desc: "이메일과 비밀번호를 입력하여 서비스에 로그인합니다.",
-            },
-            {
-                title: "분석 기록 불러오기",
-                desc: "로그인 후 이전에 분석했던 오픈소스 프로젝트 결과를 확인할 수 있습니다.",
-            },
-            {
-                title: "개인화 서비스",
-                desc: "사용자별 분석 기록과 저장된 정보를 기반으로 서비스를 이용합니다.",
-            },
-        ],
-    },
-    signup: {
-        title: "회원가입",
-        cards: [
-            {
-                title: "새 계정 만들기",
-                desc: "서비스 이용을 위해 새로운 사용자 계정을 생성합니다.",
-            },
-            {
-                title: "분석 결과 저장",
-                desc: "회원가입 후 분석한 프로젝트 결과를 계정에 저장할 수 있습니다.",
-            },
-            {
-                title: "서비스 시작",
-                desc: "계정을 만든 뒤 오픈소스 프로젝트 건강도 분석 기능을 사용할 수 있습니다.",
+                title: "프로젝트 안정성",
+                text: "초기 실험 단계인지, 실제 사용 가능한 안정 단계인지 확인합니다.",
             },
         ],
     },
 };
 
-function Header({ setActivePage }) {
+function Header({ activePage, setActivePage, isLoggedIn, setIsLoggedIn }) {
+    const goMain = () => {
+        setActivePage("main");
+    };
+
+    const logout = () => {
+        setIsLoggedIn(false);
+        setActivePage("main");
+    };
+
     return (
         <header className="header">
-            <div className="header-left">
-                <button className="menu-button" type="button">
-                    ☰
+            <button className="logo-button" onClick={goMain}>
+                OSHC
+            </button>
+
+            <nav className="nav-menu">
+                <button
+                    className={activePage === "community" ? "active" : ""}
+                    onClick={() => setActivePage("community")}
+                >
+                    커뮤니티 활성도
                 </button>
 
                 <button
-                    className="logo-button"
-                    type="button"
-                    onClick={() => setActivePage("main")}
+                    className={activePage === "sustainability" ? "active" : ""}
+                    onClick={() => setActivePage("sustainability")}
                 >
-                    OSHC
-                </button>
-            </div>
-
-            <nav className="nav">
-                <button type="button" onClick={() => setActivePage("community")}>
-                    커뮤니티 활성도
-                </button>
-                <button type="button" onClick={() => setActivePage("sustainability")}>
                     지속 가능성
                 </button>
-                <button type="button" onClick={() => setActivePage("quality")}>
+
+                <button
+                    className={activePage === "quality" ? "active" : ""}
+                    onClick={() => setActivePage("quality")}
+                >
                     코드 품질 및 신뢰성
                 </button>
-                <button type="button" onClick={() => setActivePage("governance")}>
+
+                <button
+                    className={activePage === "governance" ? "active" : ""}
+                    onClick={() => setActivePage("governance")}
+                >
                     법적·운영 거버넌스
                 </button>
-                <button type="button" onClick={() => setActivePage("maturity")}>
+
+                <button
+                    className={activePage === "maturity" ? "active" : ""}
+                    onClick={() => setActivePage("maturity")}
+                >
                     프로젝트 성숙도
                 </button>
-                <button type="button" onClick={() => setActivePage("mypage")}>
+
+                <button
+                    className={activePage === "mypage" ? "active" : ""}
+                    onClick={() => setActivePage("mypage")}
+                >
                     마이페이지
                 </button>
-                <button type="button" onClick={() => setActivePage("login")}>
-                    로그인
-                </button>
-                <button type="button" onClick={() => setActivePage("signup")}>
-                    회원가입
-                </button>
-            </nav>
 
-            <button className="plus-button" type="button">
-                +
-            </button>
+                {isLoggedIn ? (
+                    <button onClick={logout}>로그아웃</button>
+                ) : (
+                    <>
+                        <button
+                            className={activePage === "login" ? "active" : ""}
+                            onClick={() => setActivePage("login")}
+                        >
+                            로그인
+                        </button>
+
+                        <button
+                            className={activePage === "signup" ? "active" : ""}
+                            onClick={() => setActivePage("signup")}
+                        >
+                            회원가입
+                        </button>
+                    </>
+                )}
+            </nav>
         </header>
     );
 }
 
-function HomePage() {
+function HomePage({ setActivePage }) {
     return (
-        <main className="main">
+        <main className="home-page">
             <section className="hero-section">
-                <div className="hero-text">
-                    <p className="eyebrow">Open Source Health Checker</p>
+                <div className="hero-text-box">
+                    <p className="hero-label">Open Source Health Checker</p>
 
                     <h1>
                         오픈소스 프로젝트의
                         <br />
-                        건강도를 한눈에 확인하세요
+                        건강 상태를 한눈에 확인하세요
                     </h1>
 
-                    <p className="hero-desc">
-                        GitHub 저장소 URL을 입력하면 커뮤니티 활성도, 지속 가능성,
-                        코드 품질, 거버넌스, 프로젝트 성숙도를 기준으로 프로젝트 상태를
-                        분석합니다.
+                    <p className="hero-description">
+                        GitHub 오픈소스 프로젝트의 커뮤니티 활성도, 지속 가능성, 코드
+                        품질, 거버넌스, 성숙도를 분석하여 프로젝트의 상태를 쉽게 확인할 수
+                        있도록 도와줍니다.
                     </p>
 
-                    <div className="search-box">
-                        <input type="text" placeholder="GitHub Repository URL" />
-                        <button type="button">분석하기</button>
+                    <div className="hero-buttons">
+                        <button onClick={() => setActivePage("community")}>
+                            지표 살펴보기
+                        </button>
+                        <button
+                            className="outline-button"
+                            onClick={() => setActivePage("mypage")}
+                        >
+                            마이페이지
+                        </button>
                     </div>
                 </div>
 
-                <div className="hero-visual">
-                    <div className="visual-bg"></div>
-
+                <div className="hero-visual-box">
                     <div className="score-card">
-                        <p>Health Score</p>
-                        <strong>82</strong>
-                        <span>Good</span>
-                    </div>
+                        <p className="score-title">Health Score</p>
+                        <h2>OSHC</h2>
+                        <p className="score-description">
+                            오픈소스 프로젝트를 여러 기준으로 분석합니다.
+                        </p>
 
-                    <div className="floating-card community-card">
-                        <span>Community</span>
-                        <strong>활발함</strong>
-                    </div>
+                        <div className="score-bar">
+                            <span></span>
+                        </div>
 
-                    <div className="floating-card quality-card">
-                        <span>Quality</span>
-                        <strong>안정적</strong>
-                    </div>
-
-                    <div className="floating-card sustainability-card">
-                        <span>Sustainability</span>
-                        <strong>양호</strong>
+                        <div className="mini-stats">
+                            <div>
+                                <strong>5</strong>
+                                <p>분석 지표</p>
+                            </div>
+                            <div>
+                                <strong>AI</strong>
+                                <p>리포트</p>
+                            </div>
+                            <div>
+                                <strong>GitHub</strong>
+                                <p>데이터</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <section className="summary-section">
-                <div className="summary-card">
+                <div
+                    className="summary-card"
+                    onClick={() => setActivePage("community")}
+                >
                     <h3>커뮤니티 활성도</h3>
-                    <p>
-                        기여량, 참여 속도, 논의 품질을 통해 커뮤니티가 얼마나 활발한지
-                        확인합니다.
-                    </p>
+                    <p>이슈, PR, 기여자 활동을 기반으로 프로젝트의 활발함을 확인합니다.</p>
                 </div>
 
-                <div className="summary-card">
+                <div
+                    className="summary-card"
+                    onClick={() => setActivePage("sustainability")}
+                >
                     <h3>지속 가능성</h3>
-                    <p>
-                        기여자 구조와 활동 안정성을 바탕으로 프로젝트가 오래 유지될 수
-                        있는지 봅니다.
-                    </p>
+                    <p>최근 업데이트와 관리자 반응을 통해 유지 가능성을 확인합니다.</p>
                 </div>
 
-                <div className="summary-card">
+                <div className="summary-card" onClick={() => setActivePage("quality")}>
                     <h3>코드 품질 및 신뢰성</h3>
-                    <p>
-                        테스트, 결함 관리, 보안 대응 수준을 통해 코드의 신뢰도를
-                        확인합니다.
-                    </p>
+                    <p>테스트, 문서화, 코드 관리 상태를 통해 신뢰도를 확인합니다.</p>
                 </div>
 
-                <div className="summary-card">
+                <div
+                    className="summary-card"
+                    onClick={() => setActivePage("governance")}
+                >
                     <h3>법적·운영 거버넌스</h3>
-                    <p>
-                        라이선스, 기여 가이드, 운영 규칙을 통해 프로젝트가 안전하고
-                        체계적으로 관리되는지 확인합니다.
-                    </p>
+                    <p>라이선스, 기여 규칙, 운영 정책이 잘 갖춰져 있는지 확인합니다.</p>
                 </div>
 
-                <div className="summary-card">
+                <div className="summary-card" onClick={() => setActivePage("maturity")}>
                     <h3>프로젝트 성숙도</h3>
-                    <p>
-                        릴리즈, 문서화, 사용 가능성을 기준으로 프로젝트가 얼마나 성숙한
-                        상태인지 확인합니다.
-                    </p>
+                    <p>릴리즈 기록, 사용자 기반, 안정성을 통해 성숙도를 확인합니다.</p>
                 </div>
             </section>
         </main>
@@ -288,31 +284,173 @@ function HomePage() {
 }
 
 function DetailPage({ page, setActivePage }) {
+    const data = detailPages[page];
+
     return (
-        <main className="detail-main">
-            <button
-                className="back-button"
-                type="button"
-                onClick={() => setActivePage("main")}
-            >
+        <main className="detail-page">
+            <button className="back-button" onClick={() => setActivePage("main")}>
                 ← 메인으로
             </button>
 
-            <section className="detail-title-box">
-                <p className="eyebrow">Open Source Health Checker</p>
-                <h1>{page.title}</h1>
-                <p>
-                    선택한 항목에 대한 분석 기준을 카드 형태로 확인할 수 있습니다.
-                </p>
+            <section className="detail-hero">
+                <p className="detail-label">OSHC Analysis Metric</p>
+                <h1>{data.title}</h1>
+                <p>{data.description}</p>
             </section>
 
             <section className="detail-card-grid">
-                {page.cards.map((card) => (
-                    <div className="detail-card" key={card.title}>
+                {data.cards.map((card, index) => (
+                    <article className="detail-card" key={index}>
+                        <span>{index + 1}</span>
                         <h3>{card.title}</h3>
-                        <p>{card.desc}</p>
-                    </div>
+                        <p>{card.text}</p>
+                    </article>
                 ))}
+            </section>
+        </main>
+    );
+}
+
+function LoginPage({ setActivePage, setIsLoggedIn }) {
+    const handleLogin = (event) => {
+        event.preventDefault();
+
+        setIsLoggedIn(true);
+        setActivePage("mypage");
+    };
+
+    return (
+        <main className="auth-page">
+            <section className="auth-card">
+                <button className="auth-logo" onClick={() => setActivePage("main")}>
+                    OSHC
+                </button>
+
+                <p className="auth-service-name">OpenSourceHealthChecker</p>
+
+                <h1>로그인</h1>
+
+                <form className="auth-form" onSubmit={handleLogin}>
+                    <input type="text" placeholder="아이디" />
+                    <input type="password" placeholder="비밀번호" />
+
+                    <button className="auth-submit-button" type="submit">
+                        로그인
+                    </button>
+                </form>
+
+                <p className="auth-switch-text">
+                    아직 계정이 없나요?
+                    <button type="button" onClick={() => setActivePage("signup")}>
+                        회원가입
+                    </button>
+                </p>
+            </section>
+        </main>
+    );
+}
+
+function SignupPage({ setActivePage, setIsLoggedIn }) {
+    const handleSignup = (event) => {
+        event.preventDefault();
+
+        setIsLoggedIn(true);
+        setActivePage("mypage");
+    };
+
+    return (
+        <main className="auth-page">
+            <section className="auth-card">
+                <button className="auth-logo" onClick={() => setActivePage("main")}>
+                    OSHC
+                </button>
+
+                <p className="auth-service-name">OpenSourceHealthChecker</p>
+
+                <h1>회원가입</h1>
+
+                <form className="auth-form" onSubmit={handleSignup}>
+                    <input type="email" placeholder="이메일" />
+                    <input type="text" placeholder="아이디" />
+                    <input type="password" placeholder="비밀번호" />
+
+                    <button className="auth-submit-button" type="submit">
+                        회원가입
+                    </button>
+                </form>
+
+                <p className="auth-switch-text">
+                    이미 계정이 있나요?
+                    <button type="button" onClick={() => setActivePage("login")}>
+                        로그인
+                    </button>
+                </p>
+            </section>
+        </main>
+    );
+}
+
+function LoginRequiredPage({ setActivePage }) {
+    return (
+        <main className="auth-required-page">
+            <section className="auth-required-card">
+                <h1>마이페이지</h1>
+
+                <p className="auth-required-text">
+                    마이페이지를 이용하려면 로그인이 필요합니다.
+                </p>
+
+                <p className="auth-required-subtext">
+                    로그인 후 분석한 오픈소스 프로젝트의 그래프, 프로젝트 이름, 점수를
+                    확인할 수 있습니다.
+                </p>
+
+                <div className="auth-required-actions">
+                    <button onClick={() => setActivePage("login")}>로그인하기</button>
+                    <button
+                        className="secondary-button"
+                        onClick={() => setActivePage("signup")}
+                    >
+                        회원가입
+                    </button>
+                </div>
+            </section>
+        </main>
+    );
+}
+
+function MyPage({ isLoggedIn, setActivePage }) {
+    if (!isLoggedIn) {
+        return <LoginRequiredPage setActivePage={setActivePage} />;
+    }
+
+    return (
+        <main className="mypage-section">
+            <aside className="mypage-sidebar">
+                <button className="mypage-menu active">마이페이지</button>
+            </aside>
+
+            <section className="mypage-content">
+                <h1>마이페이지</h1>
+
+                <p className="mypage-description">
+                    분석한 오픈소스 프로젝트 결과를 확인할 수 있습니다.
+                </p>
+
+                <div className="empty-analysis-card">
+                    <div className="empty-graph-placeholder">
+                        <div className="empty-graph-line line-one"></div>
+                        <div className="empty-graph-line line-two"></div>
+                        <div className="empty-graph-line line-three"></div>
+                    </div>
+
+                    <h2>아직 분석한 프로젝트가 없습니다.</h2>
+
+                    <p>
+                        오픈소스 프로젝트를 분석하면 이 공간에 그래프 이미지, 오픈소스 이름,
+                        점수가 표시됩니다.
+                    </p>
+                </div>
             </section>
         </main>
     );
@@ -320,16 +458,50 @@ function DetailPage({ page, setActivePage }) {
 
 function MainPage() {
     const [activePage, setActivePage] = useState("main");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const renderPage = () => {
+        if (activePage === "main") {
+            return <HomePage setActivePage={setActivePage} />;
+        }
+
+        if (activePage === "login") {
+            return (
+                <LoginPage
+                    setActivePage={setActivePage}
+                    setIsLoggedIn={setIsLoggedIn}
+                />
+            );
+        }
+
+        if (activePage === "signup") {
+            return (
+                <SignupPage
+                    setActivePage={setActivePage}
+                    setIsLoggedIn={setIsLoggedIn}
+                />
+            );
+        }
+
+        if (activePage === "mypage") {
+            return (
+                <MyPage isLoggedIn={isLoggedIn} setActivePage={setActivePage} />
+            );
+        }
+
+        return <DetailPage page={activePage} setActivePage={setActivePage} />;
+    };
 
     return (
-        <div className="page">
-            <Header setActivePage={setActivePage} />
+        <div className="page-wrapper">
+            <Header
+                activePage={activePage}
+                setActivePage={setActivePage}
+                isLoggedIn={isLoggedIn}
+                setIsLoggedIn={setIsLoggedIn}
+            />
 
-            {activePage === "main" ? (
-                <HomePage />
-            ) : (
-                <DetailPage page={detailPages[activePage]} setActivePage={setActivePage} />
-            )}
+            {renderPage()}
         </div>
     );
 }
