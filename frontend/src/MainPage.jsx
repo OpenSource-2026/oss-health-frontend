@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./MainPage.css";
+import AnalyzePage from "./AnalyzePage";
 
 const detailPages = {
     community: {
@@ -152,6 +153,13 @@ function Header({ activePage, setActivePage, isLoggedIn, setIsLoggedIn }) {
                 </button>
 
                 <button
+                    className={activePage === "analyze" ? "active" : ""}
+                    onClick={() => setActivePage("analyze")}
+                >
+                    프로젝트 분석
+                </button>
+
+                <button
                     className={activePage === "mypage" ? "active" : ""}
                     onClick={() => setActivePage("mypage")}
                 >
@@ -202,9 +210,17 @@ function HomePage({ setActivePage }) {
                     </p>
 
                     <div className="hero-buttons">
-                        <button onClick={() => setActivePage("community")}>
+                        <button onClick={() => setActivePage("analyze")}>
+                            프로젝트 분석하기
+                        </button>
+
+                        <button
+                            className="outline-button"
+                            onClick={() => setActivePage("community")}
+                        >
                             지표 살펴보기
                         </button>
+
                         <button
                             className="outline-button"
                             onClick={() => setActivePage("mypage")}
@@ -450,6 +466,14 @@ function MyPage({ isLoggedIn, setActivePage }) {
                         오픈소스 프로젝트를 분석하면 이 공간에 그래프 이미지, 오픈소스 이름,
                         점수가 표시됩니다.
                     </p>
+
+                    <button
+                        className="auth-submit-button"
+                        type="button"
+                        onClick={() => setActivePage("analyze")}
+                    >
+                        프로젝트 분석하러 가기
+                    </button>
                 </div>
             </section>
         </main>
@@ -463,6 +487,16 @@ function MainPage() {
     const renderPage = () => {
         if (activePage === "main") {
             return <HomePage setActivePage={setActivePage} />;
+        }
+
+        if (activePage === "analyze") {
+            return (
+                <AnalyzePage
+                    setActivePage={setActivePage}
+                    isLoggedIn={isLoggedIn}
+                    setIsLoggedIn={setIsLoggedIn}
+                />
+            );
         }
 
         if (activePage === "login") {
