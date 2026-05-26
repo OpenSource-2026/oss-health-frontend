@@ -23,6 +23,12 @@
   z-index: 100;
 }
 
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
 .logo-button {
   border: none;
   background: transparent;
@@ -37,6 +43,15 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.nav-left-menu {
+  justify-content: flex-start;
+}
+
+.nav-right-menu {
+  justify-content: flex-end;
+  margin-left: auto;
 }
 
 .nav-menu button {
@@ -60,6 +75,30 @@
 .nav-menu button.active {
   background: white;
   color: #07111f;
+}
+
+.nav-menu .nav-auth-button {
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.55);
+  background: rgba(15, 23, 42, 0.85);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+}
+
+.nav-menu .nav-auth-button:hover {
+  background: rgba(30, 41, 59, 0.98);
+  border-color: rgba(96, 165, 250, 0.8);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.nav-menu .nav-auth-button.active {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.55);
+  color: #ffffff;
 }
 
 /* =========================

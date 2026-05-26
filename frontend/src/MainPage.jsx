@@ -112,73 +112,82 @@ function Header({ activePage, setActivePage, isLoggedIn, setIsLoggedIn }) {
 
     return (
         <header className="header">
-            <button className="logo-button" onClick={goMain}>
-                OSHC
-            </button>
-
-            <nav className="nav-menu">
-                <button
-                    className={activePage === "community" ? "active" : ""}
-                    onClick={() => setActivePage("community")}
-                >
-                    커뮤니티 활성도
+            <div className="header-left">
+                <button className="logo-button" onClick={goMain}>
+                    OSHC
                 </button>
 
-                <button
-                    className={activePage === "sustainability" ? "active" : ""}
-                    onClick={() => setActivePage("sustainability")}
-                >
-                    지속 가능성
-                </button>
+                <nav className="nav-menu nav-left-menu">
+                    <button
+                        className={activePage === "community" ? "active" : ""}
+                        onClick={() => setActivePage("community")}
+                    >
+                        커뮤니티 활성도
+                    </button>
 
-                <button
-                    className={activePage === "quality" ? "active" : ""}
-                    onClick={() => setActivePage("quality")}
-                >
-                    코드 품질 및 신뢰성
-                </button>
+                    <button
+                        className={activePage === "sustainability" ? "active" : ""}
+                        onClick={() => setActivePage("sustainability")}
+                    >
+                        지속 가능성
+                    </button>
 
-                <button
-                    className={activePage === "governance" ? "active" : ""}
-                    onClick={() => setActivePage("governance")}
-                >
-                    법적·운영 거버넌스
-                </button>
+                    <button
+                        className={activePage === "quality" ? "active" : ""}
+                        onClick={() => setActivePage("quality")}
+                    >
+                        코드 품질 및 신뢰성
+                    </button>
 
-                <button
-                    className={activePage === "maturity" ? "active" : ""}
-                    onClick={() => setActivePage("maturity")}
-                >
-                    프로젝트 성숙도
-                </button>
+                    <button
+                        className={activePage === "governance" ? "active" : ""}
+                        onClick={() => setActivePage("governance")}
+                    >
+                        법적·운영 거버넌스
+                    </button>
 
-                <button
-                    className={activePage === "analyze" ? "active" : ""}
-                    onClick={() => setActivePage("analyze")}
-                >
-                    프로젝트 분석
-                </button>
+                    <button
+                        className={activePage === "maturity" ? "active" : ""}
+                        onClick={() => setActivePage("maturity")}
+                    >
+                        프로젝트 성숙도
+                    </button>
 
+                    <button
+                        className={activePage === "analyze" ? "active" : ""}
+                        onClick={() => setActivePage("analyze")}
+                    >
+                        프로젝트 분석
+                    </button>
+                </nav>
+            </div>
+
+            <nav className="nav-menu nav-right-menu">
                 <button
-                    className={activePage === "mypage" ? "active" : ""}
+                    className={`nav-auth-button ${activePage === "mypage" ? "active" : ""
+                        }`}
                     onClick={() => setActivePage("mypage")}
                 >
                     마이페이지
                 </button>
 
                 {isLoggedIn ? (
-                    <button onClick={logout}>로그아웃</button>
+                    <button className="nav-auth-button" onClick={logout}>
+                        로그아웃
+                    </button>
                 ) : (
                     <>
                         <button
-                            className={activePage === "login" ? "active" : ""}
+                            className={`nav-auth-button ${activePage === "login" ? "active" : ""
+                                }`}
                             onClick={() => setActivePage("login")}
                         >
                             로그인
                         </button>
 
                         <button
-                            className={activePage === "signup" ? "active" : ""}
+                            className={`nav-auth-button ${activePage === "signup" ? "active" : ""
+                                }`}
                             onClick={() => setActivePage("signup")}
                         >
                             회원가입
