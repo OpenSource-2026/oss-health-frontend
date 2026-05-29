@@ -164,8 +164,9 @@ function Header({ activePage, setActivePage, isLoggedIn, setIsLoggedIn }) {
 
             <nav className="nav-menu nav-right-menu">
                 <button
-                    className={`nav-auth-button ${activePage === "mypage" ? "active" : ""
-                        }`}
+                    className={`nav-auth-button ${
+                        activePage === "mypage" ? "active" : ""
+                    }`}
                     onClick={() => setActivePage("mypage")}
                 >
                     마이페이지
@@ -178,16 +179,18 @@ function Header({ activePage, setActivePage, isLoggedIn, setIsLoggedIn }) {
                 ) : (
                     <>
                         <button
-                            className={`nav-auth-button ${activePage === "login" ? "active" : ""
-                                }`}
+                            className={`nav-auth-button ${
+                                activePage === "login" ? "active" : ""
+                            }`}
                             onClick={() => setActivePage("login")}
                         >
                             로그인
                         </button>
 
                         <button
-                            className={`nav-auth-button ${activePage === "signup" ? "active" : ""
-                                }`}
+                            className={`nav-auth-button ${
+                                activePage === "signup" ? "active" : ""
+                            }`}
                             onClick={() => setActivePage("signup")}
                         >
                             회원가입
@@ -256,10 +259,12 @@ function HomePage({ setActivePage }) {
                                 <strong>5</strong>
                                 <p>분석 지표</p>
                             </div>
+
                             <div>
                                 <strong>AI</strong>
                                 <p>리포트</p>
                             </div>
+
                             <div>
                                 <strong>GitHub</strong>
                                 <p>데이터</p>
@@ -432,6 +437,7 @@ function LoginRequiredPage({ setActivePage }) {
 
                 <div className="auth-required-actions">
                     <button onClick={() => setActivePage("login")}>로그인하기</button>
+
                     <button
                         className="secondary-button"
                         onClick={() => setActivePage("signup")}
@@ -451,10 +457,6 @@ function MyPage({ isLoggedIn, setActivePage }) {
 
     return (
         <main className="mypage-section">
-            <aside className="mypage-sidebar">
-                <button className="mypage-menu active">마이페이지</button>
-            </aside>
-
             <section className="mypage-content">
                 <h1>마이페이지</h1>
 
@@ -527,9 +529,7 @@ function MainPage() {
         }
 
         if (activePage === "mypage") {
-            return (
-                <MyPage isLoggedIn={isLoggedIn} setActivePage={setActivePage} />
-            );
+            return <MyPage isLoggedIn={isLoggedIn} setActivePage={setActivePage} />;
         }
 
         return <DetailPage page={activePage} setActivePage={setActivePage} />;
