@@ -164,9 +164,8 @@ function Header({ activePage, setActivePage, isLoggedIn, setIsLoggedIn }) {
 
             <nav className="nav-menu nav-right-menu">
                 <button
-                    className={`nav-auth-button ${
-                        activePage === "mypage" ? "active" : ""
-                    }`}
+                    className={`nav-auth-button ${activePage === "mypage" ? "active" : ""
+                        }`}
                     onClick={() => setActivePage("mypage")}
                 >
                     마이페이지
@@ -179,18 +178,16 @@ function Header({ activePage, setActivePage, isLoggedIn, setIsLoggedIn }) {
                 ) : (
                     <>
                         <button
-                            className={`nav-auth-button ${
-                                activePage === "login" ? "active" : ""
-                            }`}
+                            className={`nav-auth-button ${activePage === "login" ? "active" : ""
+                                }`}
                             onClick={() => setActivePage("login")}
                         >
                             로그인
                         </button>
 
                         <button
-                            className={`nav-auth-button ${
-                                activePage === "signup" ? "active" : ""
-                            }`}
+                            className={`nav-auth-button ${activePage === "signup" ? "active" : ""
+                                }`}
                             onClick={() => setActivePage("signup")}
                         >
                             회원가입
