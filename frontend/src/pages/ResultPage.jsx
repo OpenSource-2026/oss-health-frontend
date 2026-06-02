@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { jsPDF } from "jspdf";
 import "./ResultPage.css";
 
 function getGradeClass(grade) {
@@ -26,6 +27,296 @@ function formatScore(score) {
 function formatProbability(value) {
   if (value === undefined || value === null) return "-";
   return `${(Number(value) * 100).toFixed(1)}%`;
+}
+
+function safeText(value) {
+  if (value === undefined || value === null || value === "") return "-";
+  return String(value);
+}
+
+function makeSafeFileName(name) {
+  return safeText(name)
+    .replace("https://github.com/", "")
+    .replace(/[^a-zA-Z0-9가-힣_-]/g, "_");
+}
+
+function addWrappedText(doc, text, x, y, maxWidth, lineHeight = 7) {
+  const lines = doc.splitTextToSize(safeText(text), maxWidth);
+  doc.text(lines, x, y);
+  return y + lines.length * lineHeight;
+}
+
+function generatePdfReport(result) {
+  const doc = new jsPDF("p", "mm", "a4");
+
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const marginX = 16;
+  const contentWidth = pageWidth - marginX * 2;
+  let y = 18;
+
+  function checkPageSpace(requiredHeight = 20) {
+    if (y + requiredHeight > pageHeight - 18) {
+      doc.addPage();
+      y = 18;
+    }
+  }
+
+  function sectionTitle(title) {
+    checkPageSpace(18);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(15);
+    doc.text(title, marginX, y);
+    y += 8;
+    doc.setDrawColor(210, 220, 235);
+    doc.line(marginX, y, pageWidth - marginX, y);
+    y += 8;
+  }
+
+  function smallLabel(label, value) {
+    checkPageSpace(10);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.text(`${label}:`, marginX, y);
+
+    doc.setFont("helvetica", "normal");
+    doc.text(safeText(value), marginX + 45, y);
+    y += 7;
+  }
+
+  const dimensions = result?.dimension_scores || [];
+
+  const topRisks = dimensions
+    .flatMap((dimension) =>
+      (dimension.risk_features || []).map((feature) => ({
+        ...feature,
+        dimensionLabel: dimension.label,
+      }))
+    )
+    .sort((a, b) => Number(a.score) - Number(b.score))
+    .slice(0, 3);
+
+  const strongestDimension =
+    dimensions.length > 0
+      ? dimensions.reduce((max, item) => (item.score > max.score ? item : max))
+      : null;
+
+  const weakestDimension =
+    dimensions.length > 0
+      ? dimensions.reduce((min, item) => (item.score < min.score ? item : min))
+      : null;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(22);
+  doc.text("OSS Health Checker Report", marginX, y);
+  y += 10;
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(11);
+  y = addWrappedText(
+    doc,
+    "This report summarizes the open-source health diagnosis result based on repository activity, sustainability, code reliability, governance, and project maturity.",
+    marginX,
+    y,
+    contentWidth
+  );
+  y += 6;
+
+  sectionTitle("1. Repository Summary");
+
+  smallLabel("Repository", result.repo_name);
+  smallLabel("Overall Score", `${formatScore(result.overall_score)} / 100`);
+  smallLabel("Overall Grade", result.overall_grade);
+  smallLabel("Healthy Probability", formatProbability(result.healthy_probability));
+  smallLabel("Model", result.model_name);
+  smallLabel("Target", result.target);
+  smallLabel(
+    "Strongest Area",
+    strongestDimension
+      ? `${strongestDimension.label} (${formatScore(strongestDimension.score)} points)`
+      : "-"
+  );
+  smallLabel(
+    "Priority Area",
+    weakestDimension
+      ? `${weakestDimension.label} (${formatScore(weakestDimension.score)} points)`
+      : "-"
+  );
+
+  sectionTitle("2. Dimension Scores");
+
+  dimensions.forEach((dimension, index) => {
+    checkPageSpace(26);
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.text(
+      `${index + 1}. ${safeText(dimension.label)} - ${formatScore(
+        dimension.score
+      )} points (${safeText(dimension.grade)})`,
+      marginX,
+      y
+    );
+    y += 7;
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    y = addWrappedText(
+      doc,
+      safeText(dimension.core_question),
+      marginX + 4,
+      y,
+      contentWidth - 4
+    );
+    y += 3;
+
+    y = addWrappedText(
+      doc,
+      safeText(dimension.summary),
+      marginX + 4,
+      y,
+      contentWidth - 4
+    );
+    y += 6;
+  });
+
+  sectionTitle("3. Detailed Dimension Analysis");
+
+  dimensions.forEach((dimension) => {
+    checkPageSpace(36);
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(13);
+    doc.text(safeText(dimension.label), marginX, y);
+    y += 8;
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+
+    y = addWrappedText(
+      doc,
+      `Core question: ${safeText(dimension.core_question)}`,
+      marginX,
+      y,
+      contentWidth
+    );
+    y += 3;
+
+    y = addWrappedText(
+      doc,
+      `Concepts: ${safeText(dimension.concepts)}`,
+      marginX,
+      y,
+      contentWidth
+    );
+    y += 5;
+
+    doc.setFont("helvetica", "bold");
+    doc.text("Strength Signals", marginX, y);
+    y += 6;
+
+    doc.setFont("helvetica", "normal");
+    const strengths = dimension.strength_features || [];
+
+    if (strengths.length === 0) {
+      doc.text("- No strength signals.", marginX + 4, y);
+      y += 6;
+    } else {
+      strengths.forEach((feature) => {
+        checkPageSpace(18);
+        y = addWrappedText(
+          doc,
+          `- ${safeText(feature.label)} (${formatScore(feature.score)} points): ${safeText(
+            feature.description
+          )}`,
+          marginX + 4,
+          y,
+          contentWidth - 4
+        );
+        y += 3;
+      });
+    }
+
+    y += 2;
+    checkPageSpace(16);
+
+    doc.setFont("helvetica", "bold");
+    doc.text("Risk Signals", marginX, y);
+    y += 6;
+
+    doc.setFont("helvetica", "normal");
+    const risks = dimension.risk_features || [];
+
+    if (risks.length === 0) {
+      doc.text("- No risk signals.", marginX + 4, y);
+      y += 6;
+    } else {
+      risks.forEach((feature) => {
+        checkPageSpace(18);
+        y = addWrappedText(
+          doc,
+          `- ${safeText(feature.label)} (${formatScore(feature.score)} points): ${safeText(
+            feature.description
+          )}`,
+          marginX + 4,
+          y,
+          contentWidth - 4
+        );
+        y += 3;
+      });
+    }
+
+    y += 7;
+  });
+
+  sectionTitle("4. Top Improvement Suggestions");
+
+  if (topRisks.length === 0) {
+    doc.setFont("helvetica", "normal");
+    doc.text("No improvement suggestions available.", marginX, y);
+    y += 7;
+  } else {
+    topRisks.forEach((risk, index) => {
+      checkPageSpace(24);
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(11);
+      doc.text(
+        `#${index + 1} ${safeText(risk.label)} - ${safeText(risk.dimensionLabel)}`,
+        marginX,
+        y
+      );
+      y += 7;
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(10);
+      y = addWrappedText(
+        doc,
+        `Score: ${formatScore(risk.score)} points. ${safeText(risk.description)}`,
+        marginX + 4,
+        y,
+        contentWidth - 4
+      );
+      y += 6;
+    });
+  }
+
+  const pageCount = doc.internal.getNumberOfPages();
+
+  for (let i = 1; i <= pageCount; i += 1) {
+    doc.setPage(i);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(120, 130, 150);
+    doc.text(
+      `OSS Health Checker Report | Page ${i} of ${pageCount}`,
+      marginX,
+      pageHeight - 10
+    );
+  }
+
+  const fileName = `oss-health-report-${makeSafeFileName(result.repo_name)}.pdf`;
+  doc.save(fileName);
 }
 
 export default function ResultPage({ result, onBack }) {
@@ -83,9 +374,19 @@ export default function ResultPage({ result, onBack }) {
           </p>
         </div>
 
-        <button className="back-button" onClick={onBack}>
-          다시 분석하기
-        </button>
+        <div className="result-actions">
+          <button
+            className="pdf-button"
+            type="button"
+            onClick={() => generatePdfReport(result)}
+          >
+            PDF 저장
+          </button>
+
+          <button className="back-button" type="button" onClick={onBack}>
+            다시 분석하기
+          </button>
+        </div>
       </header>
 
       <section className="summary-grid">

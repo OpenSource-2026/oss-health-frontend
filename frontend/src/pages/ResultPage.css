@@ -400,3 +400,36 @@
     font-size: 44px;
   }
 }
+
+.result-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.pdf-button {
+  border: none;
+  border-radius: 14px;
+  padding: 14px 18px;
+  background: #2563eb;
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.pdf-button:hover {
+  background: #1d4ed8;
+}
+
+@media (max-width: 640px) {
+  .result-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pdf-button,
+  .back-button {
+    width: 100%;
+  }
+}
