@@ -3,7 +3,15 @@ import "./AnalyzePage.css";
 import ResultPage from "./pages/ResultPage";
 import { diagnoseRepository } from "./api/ossHealthApi";
 
-function AnalyzePage({ setActivePage }) {
+// One-click example repositories spanning the score range (large/healthy →
+// ML/at-risk → mature web framework).
+const EXAMPLE_REPOS = [
+    { label: "facebook/react", url: "https://github.com/facebook/react" },
+    { label: "openai/whisper", url: "https://github.com/openai/whisper" },
+    { label: "django/django", url: "https://github.com/django/django" },
+];
+
+function AnalyzePage({ setActivePage, theme }) {
     const [repoUrl, setRepoUrl] = useState("");
     const [analyzeStatus, setAnalyzeStatus] = useState("ready");
     const [result, setResult] = useState(null);
@@ -104,7 +112,7 @@ function AnalyzePage({ setActivePage }) {
     }
 
     if (analyzeStatus === "result") {
-        return <ResultPage result={result} onBack={resetAnalyze} />;
+        return <ResultPage result={result} onBack={resetAnalyze} theme={theme} />;
     }
 
     return (
@@ -130,6 +138,20 @@ function AnalyzePage({ setActivePage }) {
 
                     <button type="submit">분석 시작하기</button>
                 </form>
+
+                <div className="example-repos">
+                    <span className="example-label">예시:</span>
+                    {EXAMPLE_REPOS.map((repo) => (
+                        <button
+                            key={repo.url}
+                            type="button"
+                            className="example-chip"
+                            onClick={() => setRepoUrl(repo.url)}
+                        >
+                            {repo.label}
+                        </button>
+                    ))}
+                </div>
 
                 <div className="analyze-flow-box">
                     <h2>분석 흐름</h2>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./MainPage.css";
 import AnalyzePage from "./AnalyzePage";
 
@@ -100,7 +100,7 @@ const detailPages = {
     },
 };
 
-function Header({ activePage, setActivePage }) {
+function Header({ activePage, setActivePage, theme, toggleTheme }) {
     const goMain = () => {
         setActivePage("main");
     };
@@ -156,6 +156,16 @@ function Header({ activePage, setActivePage }) {
                     </button>
                 </nav>
             </div>
+
+            <button
+                className="theme-toggle"
+                type="button"
+                onClick={toggleTheme}
+                aria-label="테마 전환"
+                title={theme === "dark" ? "라이트 모드" : "다크 모드"}
+            >
+                {theme === "dark" ? "☀️" : "🌙"}
+            </button>
         </header>
     );
 }
@@ -200,10 +210,6 @@ function HomePage({ setActivePage }) {
                         <p className="score-description">
                             오픈소스 프로젝트를 여러 기준으로 분석합니다.
                         </p>
-
-                        <div className="score-bar">
-                            <span></span>
-                        </div>
 
                         <div className="mini-stats">
                             <div>
@@ -292,24 +298,45 @@ function DetailPage({ page, setActivePage }) {
     );
 }
 
-function MainPage() {
+function MainPage({ theme, toggleTheme }) {
     const [activePage, setActivePage] = useState("main");
+
+    // Make the browser/phone back button return to the home page instead of
+    // leaving the app. Entering a sub-page pushes a history entry; pressing
+    // back fires popstate and we go home.
+    useEffect(() => {
+        const onPop = () => setActivePage("main");
+        window.addEventListener("popstate", onPop);
+        return () => window.removeEventListener("popstate", onPop);
+    }, []);
+
+    const navigate = (page) => {
+        setActivePage(page);
+        if (page !== "main") {
+            window.history.pushState({ ossPage: page }, "");
+        }
+    };
 
     const renderPage = () => {
         if (activePage === "main") {
-            return <HomePage setActivePage={setActivePage} />;
+            return <HomePage setActivePage={navigate} />;
         }
 
         if (activePage === "analyze") {
-            return <AnalyzePage setActivePage={setActivePage} />;
+            return <AnalyzePage setActivePage={navigate} theme={theme} />;
         }
 
-        return <DetailPage page={activePage} setActivePage={setActivePage} />;
+        return <DetailPage page={activePage} setActivePage={navigate} />;
     };
 
     return (
         <div className="page-wrapper">
-            <Header activePage={activePage} setActivePage={setActivePage} />
+            <Header
+                activePage={activePage}
+                setActivePage={navigate}
+                theme={theme}
+                toggleTheme={toggleTheme}
+            />
 
             {renderPage()}
         </div>
