@@ -5,9 +5,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background:
-        radial-gradient(circle at top left, rgba(79, 125, 243, 0.18), transparent 32%),
-        linear-gradient(135deg, #07111f 0%, #0e1d33 48%, #101827 100%);
+    background: var(--analyze-bg);
 }
 
 .analyze-card {
@@ -15,15 +13,15 @@
     min-height: 520px;
     padding: 54px;
     border-radius: 34px;
-    background: rgba(255, 255, 255, 0.96);
-    color: #111827;
-    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.34);
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: 0 30px 90px var(--shadow-strong);
     box-sizing: border-box;
 }
 
 .analyze-label {
     margin: 0 0 14px;
-    color: #4f7df3;
+    color: var(--primary);
     font-size: 14px;
     font-weight: 900;
     letter-spacing: 0.08em;
@@ -65,7 +63,7 @@
 }
 
 .analyze-form input:focus {
-    border-color: #4f7df3;
+    border-color: var(--primary);
     box-shadow: 0 0 0 4px rgba(79, 125, 243, 0.14);
 }
 
@@ -75,7 +73,7 @@
     padding: 0 28px;
     border: none;
     border-radius: 17px;
-    background: #4f7df3;
+    background: var(--primary);
     color: #ffffff;
     font-size: 16px;
     font-weight: 900;
@@ -84,7 +82,39 @@
 
 .analyze-form button:hover,
 .analyze-button-row button:hover {
-    background: #3f6ee0;
+    background: var(--primary-dark);
+}
+
+.example-repos {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.example-label {
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.example-chip {
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+.example-chip:hover {
+    border-color: var(--primary);
+    background: var(--primary-weak);
+    color: var(--primary);
 }
 
 .analyze-flow-box {
@@ -119,7 +149,7 @@
     height: 40px;
     border-radius: 50%;
     background: #eaf0ff;
-    color: #4f7df3;
+    color: var(--primary);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -152,7 +182,7 @@
     margin-bottom: 28px;
     border-radius: 50%;
     border: 8px solid #e5eaf5;
-    border-top-color: #4f7df3;
+    border-top-color: var(--primary);
     animation: spin 1s linear infinite;
 }
 
@@ -180,7 +210,7 @@
 
 .loading-step.active {
     background: #eaf0ff;
-    color: #4f7df3;
+    color: var(--primary);
 }
 
 .loading-step span {
