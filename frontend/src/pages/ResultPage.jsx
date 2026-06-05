@@ -9,6 +9,7 @@ import {
   Legend,
 } from "chart.js";
 import { Radar } from "react-chartjs-2";
+import { QRCodeSVG } from "qrcode.react";
 import "./ResultPage.css";
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
@@ -35,13 +36,13 @@ function formatScore(score) {
   return Number(score).toFixed(1);
 }
 
-function formatProbability(value) {
-  if (value === undefined || value === null) return "-";
-  return `${(Number(value) * 100).toFixed(1)}%`;
-}
-
-export default function ResultPage({ result, onBack }) {
+export default function ResultPage({ result, onBack, isShared = false, theme }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
+
+  // Save as PDF via the browser's native print → "Save as PDF". A dedicated
+  // print stylesheet (@media print in ResultPage.css) lays the result out
+  // cleanly on A4 with no page-cut cards. Works on desktop and mobile.
+  const handleExportPdf = () => window.print();
 
   const dimensions = useMemo(() => result?.dimension_scores || [], [result]);
   const selectedDimension = dimensions[selectedIndex];
@@ -89,18 +90,42 @@ export default function ResultPage({ result, onBack }) {
     [dimensions]
   );
 
-  const radarOptions = {
-    maintainAspectRatio: false,
-    scales: {
-      r: {
-        min: 0,
-        max: 100,
-        ticks: { stepSize: 20, backdropColor: "transparent" },
-        pointLabels: { font: { size: 13 } },
+  const radarOptions = useMemo(() => {
+    const dark = theme === "dark";
+    return {
+      maintainAspectRatio: false,
+      scales: {
+        r: {
+          min: 0,
+          max: 100,
+          angleLines: {
+            color: dark ? "rgba(148,163,184,0.25)" : "rgba(15,23,42,0.1)",
+          },
+          grid: {
+            color: dark ? "rgba(148,163,184,0.2)" : "rgba(15,23,42,0.08)",
+          },
+          ticks: {
+            stepSize: 20,
+            backdropColor: "transparent",
+            color: dark ? "#94a3b8" : "#64748b",
+          },
+          pointLabels: {
+            font: { size: 13 },
+            color: dark ? "#cbd5e1" : "#334155",
+          },
+        },
       },
-    },
-    plugins: { legend: { display: false } },
-  };
+      plugins: { legend: { display: false } },
+    };
+  }, [theme]);
+
+  // Link that re-opens this exact result (served from the backend by id).
+  // Built from the current origin, so scanning the QR from a phone reaches
+  // the same host the dashboard is being shown on — open the dashboard via
+  // the laptop's LAN IP (not localhost) for the phone to connect.
+  const shareUrl = result?.share_id
+    ? `${window.location.origin}/?share=${result.share_id}`
+    : null;
 
   if (!result) {
     return (
@@ -125,10 +150,39 @@ export default function ResultPage({ result, onBack }) {
           </p>
         </div>
 
-        <button className="back-button" onClick={onBack}>
-          다시 분석하기
-        </button>
+        <div className="result-actions">
+          <button className="pdf-button" type="button" onClick={handleExportPdf}>
+            PDF 저장
+          </button>
+
+          {/* On a phone (QR share view) we never navigate away — the result
+              screen is all the mobile user should see. */}
+          {!isShared && (
+            <button className="back-button" type="button" onClick={onBack}>
+              다시 분석하기
+            </button>
+          )}
+        </div>
       </header>
+
+      {!isShared && shareUrl && (
+        <section className="share-section">
+          <div className="share-qr">
+            <QRCodeSVG value={shareUrl} size={132} level="M" includeMargin />
+          </div>
+          <div className="share-text">
+            <h2>📱 폰으로 결과 보기</h2>
+            <p>
+              QR을 폰 카메라로 비추면 이 분석 결과가 폰에서 그대로 열립니다.
+              발표·공유할 때 사용하세요.
+            </p>
+            <p className="share-hint">
+              ※ 폰이 같은 Wi-Fi에 있어야 하며, 대시보드를 노트북의 LAN
+              주소(예: http://192.168.x.x:5173)로 열어야 QR이 연결됩니다.
+            </p>
+          </div>
+        </section>
+      )}
 
       <section className="summary-grid">
         <article className="score-card main-score">
@@ -137,12 +191,6 @@ export default function ResultPage({ result, onBack }) {
           <span className={getGradeClass(result.overall_grade)}>
             {result.overall_grade}
           </span>
-        </article>
-
-        <article className="score-card">
-          <p>Healthy Probability</p>
-          <strong>{formatProbability(result.healthy_probability)}</strong>
-          <span>모델이 건강하다고 판단한 확률</span>
         </article>
 
         <article className="score-card">
