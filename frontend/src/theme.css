@@ -1,0 +1,233 @@
+/* =========================
+   Theme layer
+   - Smooth transitions when toggling.
+   - Dark-mode overrides for every major surface (scoped under
+     html[data-theme="dark"]). Light theme keeps the component CSS as-is.
+   Tokens live in index.css (:root / html[data-theme="dark"]).
+========================= */
+
+.page-wrapper,
+.home-page,
+.detail-page,
+.result-page,
+.mypage-section,
+.score-card,
+.summary-card,
+.detail-card,
+.mini-stats,
+.result-header,
+.dimension-section,
+.chart-section,
+.detail-section,
+.improvement-section,
+.radar-section,
+.ai-report-section,
+.dimension-card,
+.feature-card,
+.improvement-card,
+.analyze-card,
+.flow-card {
+  transition: background-color 0.25s ease, color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+/* ---- Theme toggle button (adapts to the header tone) ---- */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-left: 8px;
+  border: 1px solid var(--header-border);
+  border-radius: 12px;
+  background: var(--primary-weak);
+  color: var(--header-text);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.theme-toggle:hover {
+  background: var(--primary);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* Floating toggle for the standalone result/share view (no header there). */
+.theme-toggle-floating {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 200;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px var(--shadow-strong);
+}
+
+/* =========================
+   DARK MODE
+========================= */
+
+html[data-theme="dark"] .page-wrapper,
+html[data-theme="dark"] .home-page,
+html[data-theme="dark"] .detail-page,
+html[data-theme="dark"] .result-page,
+html[data-theme="dark"] .mypage-section {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* --- Generic cards / surfaces (subtle border so cards read crisply on the
+   very dark page background) --- */
+html[data-theme="dark"] .score-card,
+html[data-theme="dark"] .summary-card,
+html[data-theme="dark"] .detail-card,
+html[data-theme="dark"] .mini-stats,
+html[data-theme="dark"] .result-header,
+html[data-theme="dark"] .summary-grid .score-card,
+html[data-theme="dark"] .dimension-section,
+html[data-theme="dark"] .chart-section,
+html[data-theme="dark"] .detail-section,
+html[data-theme="dark"] .improvement-section,
+html[data-theme="dark"] .radar-section,
+html[data-theme="dark"] .ai-report-section,
+html[data-theme="dark"] .analyze-card,
+html[data-theme="dark"] .share-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 12px 40px var(--shadow);
+}
+
+html[data-theme="dark"] .dimension-card,
+html[data-theme="dark"] .flow-card {
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+/* --- Headings / body text --- */
+html[data-theme="dark"] .summary-card h3,
+html[data-theme="dark"] .detail-card h3,
+html[data-theme="dark"] .section-title h2,
+html[data-theme="dark"] .result-header h1,
+html[data-theme="dark"] .detail-main h2,
+html[data-theme="dark"] .dimension-card h3,
+html[data-theme="dark"] .score-card h2,
+html[data-theme="dark"] .analyze-card h1,
+html[data-theme="dark"] .analyze-flow-box h2,
+html[data-theme="dark"] .flow-card h3 {
+  color: var(--text-strong);
+}
+
+html[data-theme="dark"] .summary-card p,
+html[data-theme="dark"] .detail-card p,
+html[data-theme="dark"] .section-title p,
+html[data-theme="dark"] .result-header p,
+html[data-theme="dark"] .score-card p,
+html[data-theme="dark"] .score-card span,
+html[data-theme="dark"] .dimension-card p,
+html[data-theme="dark"] .summary,
+html[data-theme="dark"] .concept-box p,
+html[data-theme="dark"] .improvement-card p,
+html[data-theme="dark"] .feature-card p,
+html[data-theme="dark"] .analyze-description,
+html[data-theme="dark"] .flow-card p,
+html[data-theme="dark"] .score-title,
+html[data-theme="dark"] .score-description {
+  color: var(--text-muted);
+}
+
+html[data-theme="dark"] .score-card strong,
+html[data-theme="dark"] .mini-stats strong,
+html[data-theme="dark"] .dimension-score-row strong,
+html[data-theme="dark"] .improvement-card strong,
+html[data-theme="dark"] .bar-label-row span,
+html[data-theme="dark"] .question,
+html[data-theme="dark"] .feature-card div strong {
+  color: var(--text-strong);
+}
+
+/* --- mini-stats panel dividers --- */
+html[data-theme="dark"] .mini-stats {
+  border-color: var(--border);
+}
+html[data-theme="dark"] .mini-stats div {
+  border-right-color: var(--border-soft);
+}
+html[data-theme="dark"] .mini-stats div:hover {
+  background: var(--surface-2);
+}
+
+/* --- result page bits --- */
+html[data-theme="dark"] .dimension-card.active {
+  background: var(--primary);
+  color: #fff;
+}
+html[data-theme="dark"] .dimension-card.active p {
+  color: rgba(255, 255, 255, 0.85);
+}
+html[data-theme="dark"] .bar-track {
+  background: var(--border);
+}
+html[data-theme="dark"] .concept-box,
+html[data-theme="dark"] .improvement-card {
+  background: var(--surface-2);
+  border-color: var(--border);
+}
+html[data-theme="dark"] .rank {
+  background: var(--primary);
+}
+html[data-theme="dark"] .empty-result {
+  background: var(--surface);
+  color: var(--text);
+}
+
+/* Strength / risk cards re-tinted for dark. */
+html[data-theme="dark"] .feature-card.positive {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+html[data-theme="dark"] .feature-card.negative {
+  background: rgba(236, 72, 153, 0.12);
+  border-color: rgba(236, 72, 153, 0.4);
+}
+
+/* AI summary panel. */
+html[data-theme="dark"] .ai-report-section .ai-summary {
+  background: var(--surface-2);
+  border-color: var(--border);
+  border-left-color: var(--primary);
+  color: var(--text);
+}
+
+/* --- analyze page form/boxes --- */
+html[data-theme="dark"] .analyze-form input {
+  background: var(--surface-2);
+  border-color: var(--border);
+  color: var(--text);
+}
+html[data-theme="dark"] .analyze-flow-box {
+  background: var(--surface-2);
+  border-color: var(--border);
+}
+html[data-theme="dark"] .loading-step {
+  background: var(--surface-2);
+}
+
+/* The QR share card border. */
+html[data-theme="dark"] .share-section {
+  background: var(--surface);
+}
+html[data-theme="dark"] .share-text h2 {
+  color: var(--text-strong);
+}
+html[data-theme="dark"] .share-text p {
+  color: var(--text-muted);
+}
