@@ -1,16 +1,41 @@
-# React + Vite
+# OSS Health Checker — Frontend (web app)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + Vite single-page app for the OSS Health Checker. 사용자가 GitHub 레포지토리
+URL을 입력하면 백엔드 분석 API를 호출해 오픈소스 건강도(종합 점수 · 5개 차원 ·
+강점/위험 신호 · AI 리포트)를 대시보드로 보여줍니다.
 
-Currently, two official plugins are available:
+> 프로젝트 전체 소개 · 기능 · 화면 구성은 상위 [`../README.md`](../README.md)를 참고하세요.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 실행
 
-## React Compiler
+```bash
+npm install
+npm run dev        # 개발 서버 → http://localhost:5173
+npm run build      # 프로덕션 빌드 → dist/
+npm run lint       # ESLint
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 환경 변수
 
-## Expanding the ESLint configuration
+`.env.example`를 `.env`로 복사해 사용합니다.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| 변수 | 설명 | 예시 |
+| --- | --- | --- |
+| `VITE_API_BASE_URL` | 백엔드 API 주소. 빈 문자열이면 same-origin(`/api`)으로 호출해 nginx가 프록시 | `http://localhost:8000` |
+
+## 구조
+
+```
+src/
+├── main.jsx             # 엔트리 (공유 링크 ?share=<id> 처리, 테마 적용)
+├── MainPage.jsx         # 메인 + 5개 차원 소개 + 분석 진입
+├── AnalyzePage.jsx      # URL 입력 → 진단 API 호출 → 로딩/에러 → 결과
+├── pages/ResultPage.jsx # 결과 대시보드 (레이더 차트·차원 카드·개선 TOP3·AI 리포트·QR·PDF)
+├── api/ossHealthApi.js  # 백엔드 통신 (diagnose / result)
+└── index.css, theme.css, *.css   # 디자인 토큰 + 라이트/다크 테마
+```
+
+## 기술 스택
+
+React 19 · Vite · Chart.js (react-chartjs-2) · qrcode.react · Fetch API ·
+Docker + nginx (정적 서빙 + `/api` 리버스 프록시).

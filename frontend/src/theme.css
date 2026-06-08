@@ -10,7 +10,6 @@
 .home-page,
 .detail-page,
 .result-page,
-.mypage-section,
 .score-card,
 .summary-card,
 .detail-card,
@@ -79,8 +78,7 @@
 html[data-theme="dark"] .page-wrapper,
 html[data-theme="dark"] .home-page,
 html[data-theme="dark"] .detail-page,
-html[data-theme="dark"] .result-page,
-html[data-theme="dark"] .mypage-section {
+html[data-theme="dark"] .result-page {
   background: var(--bg);
   color: var(--text);
 }
