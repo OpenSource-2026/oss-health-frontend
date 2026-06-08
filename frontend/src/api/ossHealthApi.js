@@ -1,7 +1,10 @@
-// Same-origin by default (empty string) so the app works behind the nginx
-// `/api` proxy regardless of host — including when a phone opens it via the
-// laptop's LAN IP. `??` (not `||`) keeps an explicit empty string from
-// falling back. In dev, .env sets this to http://localhost:8000.
+// Resolve the API base URL from the build/runtime env:
+//   - Docker build passes VITE_API_BASE_URL="" (explicit empty) → same-origin,
+//     so the browser calls /api on whatever host serves the page and nginx
+//     reverse-proxies to the backend (lets a phone open the QR link via LAN IP).
+//   - Dev copies .env from .env.example, setting http://localhost:8000.
+//   - If the var is entirely unset, fall back to localhost:8000 for local dev.
+// `??` (not `||`) preserves an explicit empty string (same-origin) as-is.
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000";
 
 export async function diagnoseRepository(repoUrl) {
